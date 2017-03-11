@@ -1,0 +1,37 @@
+.margin-top {
+  margin-top: 30px;
+}
+
+.card-margin {
+  margin-right: 30px;
+}
+
+.title {
+  margin-top: 20px;
+  font-weight: bold;
+  font-family: Alegreya-BoldItalic;
+}
+
+@font-face {
+  src: url("fonts/alegreya/Alegreya-Bold.otf");
+  font-family: Alegreya-Bold;
+}
+
+@font-face {
+  src: url('fonts/alegreya/Alegreya-Italic.otf');
+  font-family: Alegreya-Italic;
+}
+
+@font-face {
+  src: url('fonts/alegreya/Alegreya-BoldItalic.otf');
+  font-family: Alegreya-BoldItalic;
+}
+
+#p-title {
+  font-family: Alegreya-BoldItalic;
+}
+
+.meta {
+  padding-top: 2px;
+  font-family: Alegreya-Italic;
+}

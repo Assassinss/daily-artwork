@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+__pycache__
+dev_artwork.sqlite
+test_artwork.sqlite
+artwork.sqlite
