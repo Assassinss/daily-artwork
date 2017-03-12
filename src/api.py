@@ -7,18 +7,17 @@ from flask import abort
 from src.models import Artwork
 from src.utils import today
 
-url = 'https://api.unsplash.com/photos/random'
-
 
 class Api:
     def __init__(self):
+        self.url = 'https://api.unsplash.com/photos/random'
         self.headers = {
             'Accept-Version': 'v1',
             'Authorization': 'Client-ID %s' % os.environ['UNSPLASH_APP_ID']
         }
 
     def fetch_photo(self):
-        resp = requests.get(url=url, headers=self.headers)
+        resp = requests.get(url=self.url, headers=self.headers)
         data = json.loads(resp.text)
         if 200 <= resp.status_code < 300:
             artwork = Artwork()
