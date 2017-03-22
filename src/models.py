@@ -1,23 +1,27 @@
-from src import db
+from google.appengine.ext import db
+
+from src.utils import today
 
 
 class Artwork(db.Model):
-    __tablename__ = 'artwork'
-    id = db.Column(db.Integer, primary_key=True)
-    date_time = db.Column(db.String, index=True)
-    created_at = db.Column(db.String)
-    updated_at = db.Column(db.String)
-    photo_id = db.Column(db.String)
-    author = db.Column(db.String)
-    model = db.Column(db.String)
-    exposure_time = db.Column(db.String)
-    aperture = db.Column(db.String)
-    focal = db.Column(db.String)
-    iso = db.Column(db.String)
-    fullUri = db.Column(db.String)
-    regularUri = db.Column(db.String)
+    date_time = db.StringProperty()
+    author = db.StringProperty()
+    model = db.StringProperty()
+    exposure_time = db.StringProperty()
+    aperture = db.StringProperty()
+    focal = db.StringProperty()
+    iso = db.StringProperty()
+    fullUri = db.StringProperty()
+    regularUri = db.StringProperty()
+    html = db.StringProperty()
+    width = db.IntegerProperty()
+    height = db.IntegerProperty()
 
-    def save_to_db(self, artwork):
-        db.session.add(artwork)
-        db.session.commit()
-        print("save success...")
+    def save(self, artwork):
+        art = Artwork.all().filter('date_time', today()).get()
+        print("today: " + today())
+        if art is None:
+            artwork.put()
+            print("save success......")
+        else:
+            print("Can't insert data to datastore, the datastore already has data")

@@ -3,6 +3,8 @@ from src import create_app
 import json
 import datetime
 import os
+from src.models import Artwork
+from google.appengine.ext import db
 
 
 class JsonTest(unittest.TestCase):
@@ -26,3 +28,7 @@ class JsonTest(unittest.TestCase):
         yesterday_date = today_date - delta_date
         formatStr = '%Y%m%d'
         self.assertEqual("20170310", yesterday_date.strftime(formatStr))
+
+    def test_gdb(self):
+        artwork = Artwork(date_time="20170313", author="Json")
+        artwork.put()

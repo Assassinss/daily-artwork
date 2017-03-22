@@ -5,47 +5,53 @@ from src.models import Artwork
 from src.utils import today, yesterday
 
 
-@artwork.route('/photo', methods=['GET'])
-def photo():
-    art = Artwork.query.filter_by(date_time=today()).first()
-    if art is None:
-        art = Artwork.query.filter_by(date_time=yesterday()).first()
-        if art is None:
-            data = {'result': None}
-            return jsonify(data)
-
-    data = {
-        'photo_id': art.photo_id,
+def create_data(art):
+    return {
         'date_time': art.date_time,
         'author': art.author,
         'model': art.model,
+        'width': art.width,
+        'height': art.height,
         'exposure_time': art.exposure_time,
         'aperture': art.aperture,
         'focal': art.focal,
         'iso': art.iso,
         'fullUri': art.fullUri,
-        'regularUri': art.regularUri
+        'html': art.html
     }
+
+
+@artwork.route('/photo', methods=['GET'])
+def photo():
+    art = Artwork.all().filter('date_time', today()).get()
+    if art is None:
+        art = Artwork.all().filter('date_time', yesterday()).get()
+        if art is None:
+            data = {'result': None}
+            return jsonify(data)
+
+    data = create_data(art)
 
     return jsonify(data)
 
 
 @artwork.route('/photos/all', methods=['GET'])
 def list_all():
-    artworks = Artwork.query.all()
+    artworks = Artwork.all()
     data = []
     for art in artworks:
         data.append({
-            'photo_id': art.photo_id,
             'date_time': art.date_time,
             'author': art.author,
             'model': art.model,
+            'width': art.width,
+            'height': art.height,
             'exposure_time': art.exposure_time,
             'aperture': art.aperture,
             'focal': art.focal,
             'iso': art.iso,
             'fullUri': art.fullUri,
-            'regularUri': art.regularUri
+            'html': art.html
         })
     return jsonify(data)
 
@@ -53,20 +59,21 @@ def list_all():
 @artwork.route("/photos/page/<int:page>", methods=['GET'])
 def get_page_data(page):
     offset = (page - 1) * 20
-    artworks = Artwork.query.limit(20).offset(offset)
+    artworks = Artwork.all().fetch(limit=20, offset=offset)
     data = []
     for art in artworks:
         data.append({
-            'photo_id': art.photo_id,
             'date_time': art.date_time,
             'author': art.author,
             'model': art.model,
+            'width': art.width,
+            'height': art.height,
             'exposure_time': art.exposure_time,
             'aperture': art.aperture,
             'focal': art.focal,
             'iso': art.iso,
             'fullUri': art.fullUri,
-            'regularUri': art.regularUri
+            'html': art.html
         })
     if len(data) == 0:
         data = [{

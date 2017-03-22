@@ -1,0 +1,17 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /src/static
+  static_dir: static
+- url: /.*
+  script: manage.app
+
+libraries:
+- name: ssl
+  version: 2.7
+
+env_variables:
+  UNSPLASH_APP_ID: Your Unspalsh App ID
+  APP_ENVIRONMENT: production

@@ -1,7 +1,7 @@
 import json
 import os
 
-import requests
+from google.appengine.api import urlfetch
 from flask import abort
 
 from src.models import Artwork
@@ -17,16 +17,16 @@ class Api:
         }
 
     def fetch_photo(self):
-        resp = requests.get(url=self.url, headers=self.headers)
-        data = json.loads(resp.text)
+        resp = urlfetch.fetch(url=self.url, headers=self.headers)
+        data = json.loads(resp.content)
         if 200 <= resp.status_code < 300:
             artwork = Artwork()
             artwork.date_time = today()
-            artwork.created_at = data['created_at']
-            artwork.updated_at = data['updated_at']
             user = data['user']
             artwork.author = user['name']
-            artwork.photo_id = data['id']
+            artwork.width = data['width']
+            artwork.height = data['height']
+            artwork.html = data['links']['html']
             urls = data['urls']
             artwork.regularUri = urls['regular']
             artwork.fullUri = urls['full']
@@ -35,7 +35,7 @@ class Api:
             artwork.exposure_time = exif['exposure_time']
             artwork.focal = exif['focal_length']
             artwork.model = exif['model']
-            artwork.iso = exif['iso']
-            artwork.save_to_db(artwork)
+            artwork.iso = str(exif['iso'])
+            artwork.save(artwork)
         elif resp.status_code >= 300:
             abort(resp.status_code, 'Error processing unspalsh photo.')

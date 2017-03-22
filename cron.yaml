@@ -1,0 +1,5 @@
+cron:
+- description: fetch Unsplash photo every day
+  url: /worker
+  schedule: every day 08:30
+  timezone: Asia/Shanghai

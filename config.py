@@ -17,7 +17,8 @@ class DevConfig(Config):
 
 class ProductionConfig(Config):
     # DATABASE_URI = os.environ['DATABASE_URL']
-    DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(baseDir, 'artwork.sqlite'))
+    # DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(baseDir, 'artwork.sqlite'))
+    pass
 
 
 class TestConfig(Config):
