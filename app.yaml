@@ -13,5 +13,5 @@ libraries:
   version: 2.7
 
 env_variables:
-  UNSPLASH_APP_ID: Your Unspalsh App ID
+  UNSPLASH_APP_ID: Your Unspalsh Application ID
   APP_ENVIRONMENT: production

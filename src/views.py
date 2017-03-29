@@ -17,6 +17,7 @@ def create_data(art):
         'focal': art.focal,
         'iso': art.iso,
         'fullUri': art.fullUri,
+        'regularUri': art.regularUri,
         'html': art.html
     }
 
@@ -51,6 +52,7 @@ def list_all():
             'focal': art.focal,
             'iso': art.iso,
             'fullUri': art.fullUri,
+             'regularUri': art.regularUri,
             'html': art.html
         })
     return jsonify(data)
@@ -73,6 +75,7 @@ def get_page_data(page):
             'focal': art.focal,
             'iso': art.iso,
             'fullUri': art.fullUri,
+            'regularUri': art.regularUri,
             'html': art.html
         })
     if len(data) == 0:
